@@ -150,3 +150,8 @@ We need to retrieve our task data from `localStorage` on page load.
 
 ### Extra exercise
 * This code is missing a feature. The state of the task (completed/not completed) is not stored, so checking a task and refreshing the page does nothing. Try fixing this on your own.
+
+Notes:
+- When item is clicked find the corresponding item in the array and set its done value to the checked state of the checkbox.
+- After the checked value has been modified in the array for the corresponding item, save the array to local storage.
+- When rendering the list, take into consideration the done value of every single item and make sure that you render the checkbox checked or un-checked depending on the done value.
