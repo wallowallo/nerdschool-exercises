@@ -1,3 +1,4 @@
+
 //Paste your code from task-2.js here :)
 (function() {
   'use strict'
@@ -25,20 +26,35 @@
   var formElement = document.querySelector('form');
   formElement.addEventListener('submit', submitFormHandler);
 
-  function createTaskElement(description) {
+  function createTaskElement(description, done) {
     var listItem = document.createElement('li');
     var checkbox = document.createElement("input");
-    checkbox.addEventListener("click", storeAllTasks);
     var label = document.createElement("label");
     checkbox.type = "checkbox";
+    checkbox.addEventListener("click", function () {
+      for(var i = 0; i < array.length; i++) {
+        if(array[i].description === label.textContent && array[i].done === true) {
+            array[i].done = false;
+            console.log(array[i]);
+        }
+        else if (array[i].description === label.textContent && array[i].done === false) {
+          array[i].done = true;
+          console.log(array[i]);
+        }
+        if(done.done === true) {
+          checkbox.checked = true;
+        } else {
+          checkbox.checked = false;
+        }
+      }
+      storeAllTasks();
+      return checkbox;
+    });
+    checkbox.checked = done.done;
     label.textContent = description.description;
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
     return listItem;
-  }
-
-  function checkDone() {
-
   }
 
   function addTasks(description) {
@@ -48,12 +64,13 @@
   }
 
   function renderTasks() {
+    var checkbox = document.querySelector('input[type="checkbox"]');
     var listItem;
     while (list.firstChild) {
       list.removeChild(list.firstChild);
     }
     for(var i = 1; i <= array.length; i++) {
-      listItem = createTaskElement(array[i - 1]);
+      listItem = createTaskElement(array[i - 1], array[i - 1]);
       list.appendChild(listItem);
     }
   }
