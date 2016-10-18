@@ -5,7 +5,7 @@
   var formElement = document.querySelector('form');
   var array = getStoredTasks();
 
-  function submitFormHandler(event) {
+  function submitFormHandler() {
     if( inputText.value === "") {
       alert("Please type your task.");
       return;
@@ -18,7 +18,7 @@
   }
   formElement.addEventListener('submit', submitFormHandler);
 
-  function createTaskElement(description, done) {
+  function createTaskElement(object) {
     var listItem = document.createElement('li');
     var checkbox = document.createElement("input");
     var label = document.createElement("label");
@@ -32,7 +32,7 @@
           array[i].done = true;
         }
 
-        if(done.done === true) {
+        if(object.done === true) {
           checkbox.checked = true;
         } else {
            checkbox.checked = false;
@@ -40,8 +40,8 @@
       }
       storeAllTasks();
     });
-    checkbox.checked = done.done;
-    label.textContent = description.description;
+    checkbox.checked = object.done;
+    label.textContent = object.description;
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
     return listItem;
@@ -56,8 +56,8 @@
     while (list.firstChild) {
       list.removeChild(list.firstChild);
     }
-    for(var i = 1; i <= array.length; i++) {
-      var listItem = createTaskElement(array[i - 1], array[i - 1]);
+    for(var i = 0; i < array.length; i++) {
+      var listItem = createTaskElement(array[i]);
       list.appendChild(listItem);
     }
   }
